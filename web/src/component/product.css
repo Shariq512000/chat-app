@@ -1,0 +1,106 @@
+.form {
+  text-align: center;
+  padding: 30px;
+  margin-top: 60px;
+}
+
+.pForm {
+  text-align: center;
+  padding: 30px;
+  margin-top: 0%;
+}
+
+.cover>img {
+  width: 100%;
+  height: 400px;
+  border: 1px solid black;
+}
+
+.profile {
+  position: relative;
+  top: -140px;
+  display: flex;
+  align-items: flex-end;
+  margin-bottom: 0%;
+
+}
+
+.profile>img {
+  border-radius: 50%;
+  width: 220px;
+  margin: 20px;
+  border: 1px solid black;
+}
+
+.profile>span {
+  /* vertical-align: center; */
+  font-size: 32px;
+  font-weight: bold;
+  padding-bottom: 35px;
+}
+
+/* #name{ padding-bottom: 30px; } */
+/* #price{ padding-bottom: 30px; } */
+/* #discription{ padding-bottom: 30px; } */
+.card {
+  border: 1px solid black;
+  text-align: center;
+  border-radius: 15px;
+  margin: auto;
+  width: 20%;
+  /* border: 3px solid green; */
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  word-wrap: break-word;
+}
+.postP{
+  display: flex;
+  margin-left: 15px;
+}
+.postP>.nam{
+  padding-left: 20px;
+  padding-bottom: 10px;
+  top: 0px;
+}
+.postP>.nam>p{
+  margin-top: 0px;
+}
+.postP>.nam>h3{
+  margin-bottom: 0px;
+}
+
+.usersList{
+  align-self: center;
+  text-align: center;
+  border: 1px solid black;
+  width: 300px;
+  margin-top: 10px;
+}
+
+/* #num{
+    word-wrap: break-word;
+} */
+@media screen and (max-width: 320px) {
+  .card {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 500px) and (min-width: 321px) {
+  .card {
+    width: 50%;
+  }
+}
+
+@media screen and (max-width: 620px) and (min-width: 501px) {
+  .card {
+    width: 40%;
+  }
+}
+
+@media screen and (max-width: 900px) and (min-width: 621px) {
+  .card {
+    width: 30%;
+  }
+}
