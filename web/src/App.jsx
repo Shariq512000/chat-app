@@ -8,6 +8,7 @@ import Contact from "./component/Contact";
 import Profile from "./component/profile";
 import ChangePassword from "./component/changePassword"
 import ForgetPassword from "./component/forgetPassword"
+import ChatScreen from "./component/chatScreen";
 
 import { useContext } from "react";
 import { GlobalContext } from './context/Context';
@@ -244,6 +245,7 @@ function App() {
                <Routes>
                   <Route path="/" element={<UserList />} />
                   <Route path="/profile" element={<Profile />} />
+                  <Route path="/chat/:id" element={<ChatScreen />} />
                   <Route path="/change-password" element={<ChangePassword />} />
                   <Route path="*" element={<Navigate to="/" replace={true} />} />
                </Routes>

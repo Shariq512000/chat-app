@@ -3,9 +3,9 @@ import mongoose from 'mongoose';
 
 let postSchema = new mongoose.Schema({
     text: { type: String, required: true },
-    owner: { type: mongoose.ObjectId, ref: "Users" , required: true },
+    owner: { type: mongoose.ObjectId, ref: "Users", required: true },
     image: { type: String },
-    imageUrl: {type: String},
+    imageUrl: { type: String },
     // likes: [{ type: mongoose.ObjectId }],
     // comments: [ {
     //     user: { type: mongoose.ObjectId },
@@ -15,6 +15,16 @@ let postSchema = new mongoose.Schema({
     createdOn: { type: Date, default: Date.now }
 });
 export const postModel = mongoose.model('posts', postSchema);
+
+const messagesSchema = new mongoose.Schema({
+    from: { type: mongoose.ObjectId, ref: 'Users', required: true },
+    to: { type: mongoose.ObjectId, ref: 'Users', required: true },
+    text: { type: String, required: true },
+    imageUrl: { type: String },
+    createdOn: { type: Date, default: Date.now },
+});
+messagesSchema.index({ text: 'text' });
+export const messageModel = mongoose.model('Messages', messagesSchema);
 
 
 const userSchema = new mongoose.Schema({
@@ -26,13 +36,13 @@ const userSchema = new mongoose.Schema({
     createdOn: { type: Date, default: Date.now },
 });
 
-userSchema.index({firstName: 'text' , lastName: 'text'})
+userSchema.index({ firstName: 'text', lastName: 'text' })
 export const userModel = mongoose.model('Users', userSchema);
 
 const otpSchema = new mongoose.Schema({
-    email: { type: String} ,
-    otp: { type: String},
-    isUsed: { type: Boolean , default: false },
+    email: { type: String },
+    otp: { type: String },
+    isUsed: { type: Boolean, default: false },
     createdOn: { type: Date, default: Date.now },
 });
 export const otpModel = mongoose.model('Otps', otpSchema);

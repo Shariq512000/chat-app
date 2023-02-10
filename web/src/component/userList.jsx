@@ -27,12 +27,13 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { GrUpdate } from 'react-icons/gr';
 import SearchAppBar from "./header";
 import Grid from '@mui/material/Grid';
+import { Link } from "react-router-dom";
 import "./product.css";
 // import SearchAppBar from './header'
 
 
 
-function PostFeed() {
+function UserList() {
   let { state, dispatch } = useContext(GlobalContext);
 
   const [searchTerm, setSearchTerm] = useState("");
@@ -49,7 +50,7 @@ function PostFeed() {
 
   const getUsers = async (e) => {
 
-    if(e) e.preventDefault();
+    if (e) e.preventDefault();
 
 
     try {
@@ -85,12 +86,14 @@ function PostFeed() {
       {(users?.lenght === 0) ? <h3>No User Found</h3> : null}
       {
         users?.map((eachUser, i) => (
-            <div key={i} className="usersList">
+          <div key={i} className="usersList">
+            <Link to={`/chat/${eachUser._id}`}>
               <h2>{eachUser?.firstName} {eachUser?.lastName}</h2>
               <span>{eachUser?.email}</span>
-              {(eachUser?.me)? <span> <br /> <br /> this is me</span> : null }
-            </div>
-        )) 
+              {(eachUser?.me) ? <span> <br /> <br /> this is me</span> : null}
+            </Link>
+          </div>
+        ))
       }
 
     </div >
@@ -98,4 +101,4 @@ function PostFeed() {
   )
 
 }
-export default PostFeed;
+export default UserList;
