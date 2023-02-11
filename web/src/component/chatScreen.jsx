@@ -77,7 +77,9 @@ function ChatScreen() {
 
   useEffect(() => {
 
-    const socket = io(`${state.baseUrlSocketIo}`);
+    const socket = io(`${state.baseUrlSocketIo}` , {
+      withCredentials: true
+    });
 
     socket.on('connect', function () {
       console.log("connected")

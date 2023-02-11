@@ -54,7 +54,9 @@ function UserList() {
 
   useEffect(() => {
 
-    const socket = io(`${state.baseUrlSocketIo}`);
+    const socket = io(`${state.baseUrlSocketIo}` , {
+      withCredentials: true
+    });
 
     socket.on('connect', function () {
       console.log("connected")
@@ -120,7 +122,7 @@ function UserList() {
         {notifications.map((eachNotification , i)=>{
           return(
           <div key={i} className="item">
-            <Link to={`/chat/${eachNotification.from._id}`}>
+            <Link to={`/chat/${eachNotification.from._id}`} className="linkk">
             <div className="title">{eachNotification.from.firstName} {eachNotification.from.lastName}</div>
             <div>{eachNotification.text.slice(0 , 20)}</div>
             </Link>

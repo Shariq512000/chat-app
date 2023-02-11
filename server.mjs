@@ -9,6 +9,7 @@ import {
     varifyHash,
 } from "bcrypt-inzi";
 import { Server as socketIo } from 'socket.io';
+import cookie from "cookie";
 import { createServer } from 'http';
 import authApis from "./apis/auth.mjs";
 import postApis from "./apis/post.mjs";
@@ -260,6 +261,41 @@ const io = new socketIo(server, {
 
 io.on("connection", (socket) => {
     console.log("New client connected with id: ", socket.id);
+
+    if( typeof socket?.request?.headers?.cookie !== "string")
+    {
+        socket.disconnect(true)
+        return;
+    }
+
+    const token = socket?.request?.headers?.cookie
+
+    console.log("tokennn :" , token)
+
+    const cookieData = cookie.parse(token);
+
+    console.log("cookieData: " , cookieData);
+
+    if (!cookieData?.Token) {
+        socket.disconnect(true);
+        return;
+    }
+
+    jwt.verify(cookieData?.Token, SECRET, function (err, decodedData) {
+        if (!err) {
+
+            console.log("decodedData: ", decodedData);
+
+            const nowDate = new Date().getTime() / 1000;
+
+            if (decodedData.exp < nowDate) {
+
+                socket.disconnect(true);
+            }
+        } else {
+            socket.disconnect(true);
+        }
+    });
 
     // to emit data to a certain client
     socket.emit("topic 1", "some data")

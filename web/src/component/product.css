@@ -134,7 +134,10 @@
 .notificationView .title{
   font-weight: bold;
 }
-
+.linkk{
+  text-decoration: none;
+  color: black;
+}
 /* #num{
     word-wrap: break-word;
 } */
