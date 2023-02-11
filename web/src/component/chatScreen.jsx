@@ -28,7 +28,7 @@ import { GrUpdate } from 'react-icons/gr';
 import SearchAppBar from "./header";
 import Grid from '@mui/material/Grid';
 import { useParams } from "react-router-dom";
-import io from 'socket.io-client';
+import {io} from 'socket.io-client';
 import "./product.css";
 // import SearchAppBar from './header'
 
@@ -77,16 +77,20 @@ function ChatScreen() {
 
   useEffect(() => {
 
-    const socket = io(`${state.baseUrl}`);
+    const socket = io(`${state.baseUrlSocketIo}`);
 
     socket.on('connect', function () {
       console.log("connected")
     });
 
+    socket.on("connect_error", (err) => {
+      console.log(`connect_error due to ${err.message}`);
+    });
+
     socket.on('disconnect', function (message) {
       console.log("Socket disconnected from server: ", message);
     });
-    console.log("Subscribe: " , `${state.user._id}-${id}`)
+    console.log("Subscribe: ", `${state.user._id}-${id}`)
     // to subcribe to a topic
     socket.on(`${state.user._id}-${id}`, function (data) {
       console.log(data);
