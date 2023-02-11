@@ -77,7 +77,7 @@ function ChatScreen() {
 
   useEffect(() => {
 
-    const socket = io("http://localhost:5001");
+    const socket = io(`${state.baseUrl}`);
 
     socket.on('connect', function () {
       console.log("connected")
