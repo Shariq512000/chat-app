@@ -27,7 +27,9 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { GrUpdate } from 'react-icons/gr';
 import SearchAppBar from "./header";
 import Grid from '@mui/material/Grid';
+import {io} from 'socket.io-client';
 import { Link } from "react-router-dom";
+import CloseIcon from '@mui/icons-material/Close';
 import "./product.css";
 // import SearchAppBar from './header'
 
@@ -38,6 +40,7 @@ function UserList() {
 
   const [searchTerm, setSearchTerm] = useState("");
   const [users, setUsers] = useState(null);
+  const [notifications, setNotifications] = useState([]);
   // const [ loadUsers , setLoadUsers ] = useState(false);
 
 
@@ -45,6 +48,40 @@ function UserList() {
 
   useEffect(() => {
     getUsers();
+
+  }, [])
+
+
+  useEffect(() => {
+
+    const socket = io(`${state.baseUrlSocketIo}`);
+
+    socket.on('connect', function () {
+      console.log("connected")
+    });
+
+    socket.on("connect_error", (err) => {
+      console.log(`connect_error due to ${err.message}`);
+    });
+
+    socket.on('disconnect', function (message) {
+      console.log("Socket disconnected from server: ", message);
+    });
+    // to subcribe to a topic
+    socket.on(`personal-channel-${state.user._id}`, function (data) {
+      console.log("Subscribe: ", `personal-channel-${state.user._id}`)
+      console.log(data);
+      // getConversation();
+      setNotifications(
+        prev => [data , ...prev]
+      )
+    });
+
+
+    return () => {
+      socket.close();
+    }
+
 
   }, [])
 
@@ -66,9 +103,36 @@ function UserList() {
     }
   }
 
+  const dismissNotification = (notification) => {
+
+    setNotifications(
+      allNotifications => {
+        const filteredNotification = allNotifications.filter( eachItem => eachItem._id !== notification._id )
+        return filteredNotification;
+      }
+    )
+
+  }
 
   return (
     <div>
+      <div className="notificationView">
+        {notifications.map((eachNotification , i)=>{
+          return(
+          <div key={i} className="item">
+            <Link to={`/chat/${eachNotification.from._id}`}>
+            <div className="title">{eachNotification.from.firstName} {eachNotification.from.lastName}</div>
+            <div>{eachNotification.text.slice(0 , 20)}</div>
+            </Link>
+            <IconButton onClick={
+              () => {
+                dismissNotification(eachNotification)
+              }
+            }><CloseIcon fontSize="small" /></IconButton>
+          </div>
+          )
+        })}
+      </div>
       <h1>Search User to Start Chat</h1>
 
       {console.log("Users", users)}

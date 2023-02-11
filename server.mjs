@@ -12,7 +12,7 @@ import { Server as socketIo } from 'socket.io';
 import { createServer } from 'http';
 import authApis from "./apis/auth.mjs";
 import postApis from "./apis/post.mjs";
-import { userModel , messageModel } from './dbRepo/models.mjs';
+import { userModel, messageModel } from './dbRepo/models.mjs';
 
 const SECRET = process.env.SECRET || "topsecret";
 
@@ -169,17 +169,17 @@ app.post('/api/v1/message', async (req, res) => {
         text: req.body.text
     })
 
-    io.emit(`${req.body.to}-${req.body.token._id}` , sent)
+    // io.emit(`${req.body.to}-${req.body.token._id}` , sent)
 
-    console.log("channel: ", `${req.body.to}-${req.body.token._id}`);
+    // console.log("channel: ", `${req.body.to}-${req.body.token._id}`);
 
     const populatedMessage = await messageModel
         .findById(sent._id)
         .populate({ path: 'from', select: 'firstName lastName email' })
         .populate({ path: 'to', select: 'firstName lastName email' })
         .exec();
-    // io.emit(`${req.body.to}-${req.body.token._id}`, populatedMessage)
-    // io.emit(`personal-channel-${req.body.to}`, populatedMessage)
+    io.emit(`${req.body.to}-${req.body.token._id}`, populatedMessage)
+    io.emit(`personal-channel-${req.body.to}`, populatedMessage)
 
     console.log("populatedMessage: ", populatedMessage)
 

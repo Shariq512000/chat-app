@@ -92,12 +92,17 @@
 }
 
 .recipientMessage {
+  max-width: 50%;
+  word-break: break-all;
+  align-self: flex-start;
   border-radius: 15px 15px 15px 0px;
   background-color: #E5E5EA;
 }
 
 
 .myMessage {
+  max-width: 50%;
+  word-break: break-all;
   align-self: flex-end;
   border-radius: 15px 15px 0px 15px;
   background-color: #007AFE;
@@ -110,6 +115,23 @@
 }
 
 .message .name {
+  font-weight: bold;
+}
+
+.notificationView{
+  position: fixed;
+  top: 0px;
+  right: 0px;
+  text-align: right;
+}
+
+.notificationView .item{
+  background-color: rgba(128, 128, 128, 0.76);
+  border-radius: 15px;
+  padding: 10px;
+  margin: 10px;
+}
+.notificationView .title{
   font-weight: bold;
 }
 

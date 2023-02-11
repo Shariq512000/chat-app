@@ -94,7 +94,10 @@ function ChatScreen() {
     socket.on(`${state.user._id}-${id}`, function (data) {
       console.log("Subscribe: ", `${state.user._id}-${id}`)
       console.log(data);
-      getConversation();
+      // getConversation();
+      setPreviousMessage(
+        prev => [data , ...prev]
+      );
     });
 
 
