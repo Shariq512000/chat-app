@@ -251,9 +251,9 @@ app.use('*', express.static(path.join(__dirname, './web/build')))
 
 const server = createServer(app);
 
-let io = new socketIo(server, {
+const io = new socketIo(server, {
     cors: {
-        origin: ["http://localhost:3000", 'https://mern-chat-app-inzamam.up.railway.app'],
+        origin: ["http://localhost:3000", '*'],
         credentials: true
     }
 });
