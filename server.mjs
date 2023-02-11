@@ -8,6 +8,8 @@ import {
     stringToHash,
     varifyHash,
 } from "bcrypt-inzi";
+import { Server as socketIo } from 'socket.io';
+import { createServer } from 'http';
 import authApis from "./apis/auth.mjs";
 import postApis from "./apis/post.mjs";
 import { userModel , messageModel } from './dbRepo/models.mjs';
@@ -167,6 +169,8 @@ app.post('/api/v1/message', async (req, res) => {
         text: req.body.text
     })
 
+    io.emit(`${req.body.to}-${req.body.token._id}` , sent)
+
     console.log("channel: ", `${req.body.to}-${req.body.token._id}`);
 
     const populatedMessage = await messageModel
@@ -245,7 +249,43 @@ const __dirname = path.resolve();
 app.use('/', express.static(path.join(__dirname, './web/build')))
 app.use('*', express.static(path.join(__dirname, './web/build')))
 
-app.listen(port, () => {
+const server = createServer(app);
+
+let io = new socketIo(server, {
+    cors: {
+        origin: ["http://localhost:3000", 'https://mern-chat-app-inzamam.up.railway.app'],
+        credentials: true
+    }
+});
+
+io.on("connection", (socket) => {
+    console.log("New client connected with id: ", socket.id);
+
+    // to emit data to a certain client
+    socket.emit("topic 1", "some data")
+
+    // collecting connected users in a array
+    // connectedUsers.push(socket)
+
+    socket.on("disconnect", (message) => {
+        console.log("Client disconnected with id: ", message);
+    });
+});
+
+
+// to emit data to a certain client
+//  connectedUsers[0].emit("topic 1", "some data")
+
+setInterval(() => {
+
+    // to emit data to all connected client
+    // first param is topic name and second is json data
+    io.emit("Test topic", { event: "ADDED_ITEM", data: "some data" });
+    console.log("emiting data to all client");
+
+}, 2000)
+
+server.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
 
