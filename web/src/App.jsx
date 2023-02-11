@@ -25,6 +25,8 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import LogoutIcon from '@mui/icons-material/Logout';
 import CircularProgress from '@mui/material/CircularProgress';
+import { Button } from "@mui/material";
+import { createTheme } from '@mui/material/styles';
 
 
 import { useState } from 'react';
@@ -77,6 +79,22 @@ import { useEffect } from "react";
 //       },
 //    },
 // }));
+
+// const theme = createTheme({
+//    status: {
+//       danger: '#e53e3e',
+//    },
+//    palette: {
+//       primary: {
+//          main: '#0971f1',
+//          darker: '#053e85',
+//       },
+//       neutral: {
+//          main: '#00000',
+//       },
+//    },
+// });
+
 
 function App() {
    let { state, dispatch } = useContext(GlobalContext);
@@ -206,7 +224,7 @@ function App() {
                               <Link to={'/profile'}>Profile</Link>
                            </li>
                            <li>
-                              <button><Link to={'/change-password'}>Change Password</Link></button>
+                              <Link to={'/change-password'}>Change Password</Link>
                            </li>
                         </ul>
                         :

@@ -18,6 +18,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import CircularProgress from '@mui/material/CircularProgress';
+import SendIcon from '@mui/icons-material/Send';
 
 import coverImage from "../images/coverPhoto1.png";
 import profileImage from "../images/profilePhoto1.jpg";
@@ -28,7 +29,7 @@ import { GrUpdate } from 'react-icons/gr';
 import SearchAppBar from "./header";
 import Grid from '@mui/material/Grid';
 import { useParams } from "react-router-dom";
-import {io} from 'socket.io-client';
+import { io } from 'socket.io-client';
 import "./product.css";
 // import SearchAppBar from './header'
 
@@ -77,7 +78,7 @@ function ChatScreen() {
 
   useEffect(() => {
 
-    const socket = io(`${state.baseUrlSocketIo}` , {
+    const socket = io(`${state.baseUrlSocketIo}`, {
       withCredentials: true
     });
 
@@ -98,7 +99,7 @@ function ChatScreen() {
       console.log(data);
       // getConversation();
       setPreviousMessage(
-        prev => [data , ...prev]
+        prev => [data, ...prev]
       );
     });
 
@@ -143,15 +144,23 @@ function ChatScreen() {
       <h1>Chat with {recieverProfile?.firstName} {recieverProfile?.lastName}</h1>
       {console.log(recieverProfile)}
 
-      <form onSubmit={sendMessage}>
-        <input type="text"
-          placeholder="type your message"
+      <form onSubmit={sendMessage} className="sendsms">
+        
+        <TextField
+
+          multiline
+          rows={1}
           value={writeMessage}
+          variant="filled"
+          id="text"
+          placeholder="Write Some Thing"
           onChange={(e) => {
             setWriteMessage(e.target.value)
           }}
         />
-        <button type="submit">Send</button>
+        <br />
+        <br />
+        <IconButton type="submit"><SendIcon /></IconButton>
       </form>
 
       <div className='messageView'>

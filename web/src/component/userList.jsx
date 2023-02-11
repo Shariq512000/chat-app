@@ -27,7 +27,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import { GrUpdate } from 'react-icons/gr';
 import SearchAppBar from "./header";
 import Grid from '@mui/material/Grid';
-import {io} from 'socket.io-client';
+import { io } from 'socket.io-client';
 import { Link } from "react-router-dom";
 import CloseIcon from '@mui/icons-material/Close';
 import "./product.css";
@@ -54,7 +54,7 @@ function UserList() {
 
   useEffect(() => {
 
-    const socket = io(`${state.baseUrlSocketIo}` , {
+    const socket = io(`${state.baseUrlSocketIo}`, {
       withCredentials: true
     });
 
@@ -75,7 +75,7 @@ function UserList() {
       console.log(data);
       // getConversation();
       setNotifications(
-        prev => [data , ...prev]
+        prev => [data, ...prev]
       )
     });
 
@@ -109,7 +109,7 @@ function UserList() {
 
     setNotifications(
       allNotifications => {
-        const filteredNotification = allNotifications.filter( eachItem => eachItem._id !== notification._id )
+        const filteredNotification = allNotifications.filter(eachItem => eachItem._id !== notification._id)
         return filteredNotification;
       }
     )
@@ -119,19 +119,19 @@ function UserList() {
   return (
     <div>
       <div className="notificationView">
-        {notifications.map((eachNotification , i)=>{
-          return(
-          <div key={i} className="item">
-            <Link to={`/chat/${eachNotification.from._id}`} className="linkk">
-            <div className="title">{eachNotification.from.firstName} {eachNotification.from.lastName}</div>
-            <div>{eachNotification.text.slice(0 , 20)}</div>
-            </Link>
-            <IconButton onClick={
-              () => {
-                dismissNotification(eachNotification)
-              }
-            }><CloseIcon fontSize="small" /></IconButton>
-          </div>
+        {notifications.map((eachNotification, i) => {
+          return (
+            <div key={i} className="item">
+              <Link to={`/chat/${eachNotification.from._id}`} className="linkk">
+                <div className="title">{eachNotification.from.firstName} {eachNotification.from.lastName}</div>
+                <div>{eachNotification.text.slice(0, 20)}</div>
+              </Link>
+              <IconButton onClick={
+                () => {
+                  dismissNotification(eachNotification)
+                }
+              }><CloseIcon fontSize="small" /></IconButton>
+            </div>
           )
         })}
       </div>
@@ -139,28 +139,33 @@ function UserList() {
 
       {console.log("Users", users)}
 
-      <form onSubmit={getUsers}>
-        <input type="search"
+      <form onSubmit={getUsers} className="sendsms">
+        <TextField
+          id="email"
+          label="Search User: "
+          type="search"
           onChange={(e) => {
             setSearchTerm(e.target.value)
           }}
         />
-        <button type="submit">Search</button>
+        {/* <button type="submit">Search</button> */}
       </form>
 
       {(users === null) ? "Loading..." : null}
       {(users?.lenght === 0) ? <h3>No User Found</h3> : null}
-      {
-        users?.map((eachUser, i) => (
-          <div key={i} className="usersList">
-            <Link to={`/chat/${eachUser._id}`}>
-              <h2>{eachUser?.firstName} {eachUser?.lastName}</h2>
-              <span>{eachUser?.email}</span>
-              {(eachUser?.me) ? <span> <br /> <br /> this is me</span> : null}
-            </Link>
-          </div>
-        ))
-      }
+      <div className="userView">
+        {
+          users?.map((eachUser, i) => (
+            <div key={i} className="usersList">
+              <Link to={`/chat/${eachUser._id}`} className="userLink">
+                <h2>{eachUser?.firstName} {eachUser?.lastName}</h2>
+                <span>{eachUser?.email}</span>
+                {(eachUser?.me) ? <span> <br /> <br /> this is me</span> : null}
+              </Link>
+            </div>
+          ))
+        }
+      </div>
 
     </div >
 
