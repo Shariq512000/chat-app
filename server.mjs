@@ -253,7 +253,7 @@ const server = createServer(app);
 
 const io = new socketIo(server, {
     cors: {
-        origin: ["http://localhost:3000", '*'],
+        origin: ["http://localhost:3000", 'https://mern-chatapp.up.railway.app'],
         credentials: true
     }
 });
@@ -276,14 +276,14 @@ io.on("connection", (socket) => {
 // to emit data to a certain client
 //  connectedUsers[0].emit("topic 1", "some data")
 
-setInterval(() => {
+// setInterval(() => {
 
-    // to emit data to all connected client
-    // first param is topic name and second is json data
-    io.emit("Test topic", { event: "ADDED_ITEM", data: "some data" });
-    console.log("emiting data to all client");
+//     // to emit data to all connected client
+//     // first param is topic name and second is json data
+//     io.emit("Test topic", { event: "ADDED_ITEM", data: "some data" });
+//     console.log("emiting data to all client");
 
-}, 2000)
+// }, 2000)
 
 server.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
