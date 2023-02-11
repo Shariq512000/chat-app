@@ -86,7 +86,7 @@ function ChatScreen() {
     socket.on('disconnect', function (message) {
       console.log("Socket disconnected from server: ", message);
     });
-    
+    console.log("Subscribe: " , `${state.user._id}-${id}`)
     // to subcribe to a topic
     socket.on(`${state.user._id}-${id}`, function (data) {
       console.log(data);
