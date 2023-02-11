@@ -161,7 +161,7 @@ function Login() {
                 </Snackbar>
             </form>
 
-            <Link to={"/forget-password"}>Forget Password?</Link>
+            <center><Link to={"/forget-password"}>Forget Password?</Link></center>
 
 
 
