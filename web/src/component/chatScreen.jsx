@@ -28,6 +28,7 @@ import { GrUpdate } from 'react-icons/gr';
 import SearchAppBar from "./header";
 import Grid from '@mui/material/Grid';
 import { useParams } from "react-router-dom";
+import io from 'socket.io-client';
 import "./product.css";
 // import SearchAppBar from './header'
 
@@ -41,7 +42,7 @@ function ChatScreen() {
   const [writeMessage, setWriteMessage] = useState("");
   const [previousMessage, setPreviousMessage] = useState(null);
   const [recieverProfile, setRecieverProfile] = useState({});
-  // const [ loadUsers , setLoadUsers ] = useState(false);
+  const [loadMessage, setLoadMessage] = useState(false);
 
   const getConversation = async () => {
     try {
@@ -74,11 +75,35 @@ function ChatScreen() {
 
 
 
+  useEffect(() => {
+
+    const socket = io("http://localhost:5001");
+
+    socket.on('connect', function () {
+      console.log("connected")
+    });
+
+    socket.on('disconnect', function (message) {
+      console.log("Socket disconnected from server: ", message);
+    });
+    
+    // to subcribe to a topic
+    socket.on(`${state.user._id}-${id}`, function (data) {
+      console.log(data);
+    });
+
+
+    return () => {
+      socket.close();
+    }
+
+
+  }, [])
 
   useEffect(() => {
     getRecieverProfile()
     getConversation()
-  }, [])
+  }, [loadMessage])
 
   const sendMessage = async (e) => {
 
@@ -93,8 +118,8 @@ function ChatScreen() {
         withCredentials: true
       })
       console.log("response ", response.data)
-      setUsers(response.data)
-      // setLoadUsers(!loadUsers);
+      setWriteMessage("");
+      setLoadMessage(!loadMessage)
     } catch (error) {
       console.log("Error ", error)
 
@@ -111,6 +136,7 @@ function ChatScreen() {
       <form onSubmit={sendMessage}>
         <input type="text"
           placeholder="type your message"
+          value={writeMessage}
           onChange={(e) => {
             setWriteMessage(e.target.value)
           }}
