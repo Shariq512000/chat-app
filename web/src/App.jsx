@@ -18,6 +18,7 @@ import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
@@ -26,6 +27,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import LogoutIcon from '@mui/icons-material/Logout';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Button } from "@mui/material";
+import Drawer from '@mui/material/Drawer';
+import Divider from '@mui/material/Divider';
 import { createTheme } from '@mui/material/styles';
 
 
@@ -36,68 +39,11 @@ import { useEffect } from "react";
 
 
 
-//    position: 'relative',
-//    borderRadius: theme.shape.borderRadius,
-//    backgroundColor: alpha(theme.palette.common.white, 0.15),
-//    '&:hover': {
-//       backgroundColor: alpha(theme.palette.common.white, 0.25),
-//    },
-//    marginLeft: 0,
-//    width: '100%',
-//    [theme.breakpoints.up('sm')]: {
-//       marginLeft: theme.spacing(1),
-//       width: 'auto',
-//    },
-// }));
-
-// const SearchIconWrapper = styled('div')(({ theme }) => ({
-//    padding: theme.spacing(0, 2),
-//    height: '100%',
-//    position: 'absolute',
-//    pointerEvents: 'none',
-//    display: 'flex',
-//    alignItems: 'center',
-//    justifyContent: 'center',
-// }));
-
-// const StyledInputBase = styled(InputBase)(({ theme }) => ({
-//    // onChange={
-//    // gettingProduct()
-//    // },
-//    color: 'inherit',
-//    '& .MuiInputBase-input': {
-//       padding: theme.spacing(1, 1, 1, 0),
-//       // vertical padding + font size from searchIcon
-//       paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-//       transition: theme.transitions.create('width'),
-//       width: '100%',
-//       [theme.breakpoints.up('sm')]: {
-//          width: '12ch',
-//          '&:focus': {
-//             width: '20ch',
-//          },
-//       },
-//    },
-// }));
-
-// const theme = createTheme({
-//    status: {
-//       danger: '#e53e3e',
-//    },
-//    palette: {
-//       primary: {
-//          main: '#0971f1',
-//          darker: '#053e85',
-//       },
-//       neutral: {
-//          main: '#00000',
-//       },
-//    },
-// });
 
 
 function App() {
    let { state, dispatch } = useContext(GlobalContext);
+   const [menuOpen, setMenuOpen] = useState(false);
 
    console.log("state: ", state);
 
@@ -191,9 +137,26 @@ function App() {
                      color="inherit"
                      aria-label="open drawer"
                      sx={{ mr: 2 }}
+                     onClick={() => { setMenuOpen(true) }
+                     }
                   >
                      <MenuIcon />
                   </IconButton>
+                  <Drawer
+                     anchor="left"
+                     open={menuOpen}
+                     onClose={() => { setMenuOpen(false) }}
+                  >
+                     <IconButton onClick={() => { setMenuOpen(false) }} style={{borderRadius: 0, alignSelf: "flex-end"}}>
+                        <ArrowBackIcon />
+                     </IconButton>
+                     <Divider style={{marginTop:5}} />
+                     <ul className="hamNav">
+                        <li>
+                           <Button variant="outlined" className="hamButt"><Link to={'/change-password'}>Change Password</Link></Button>
+                        </li>
+                     </ul>
+                  </Drawer>
                   <Typography
                      variant="h6"
                      noWrap
@@ -205,10 +168,10 @@ function App() {
                      (state?.isLogin === false) ?
                         <ul className="nav">
                            <li>
-                              <Link to={'/'}>Login</Link>
+                              <Button variant="outlined" className="butt"><Link to={'/'}>Login</Link></Button>
                            </li>
                            <li>
-                              <Link to={'/signup'}>Signup</Link>
+                              <Button variant="outlined" className="butt" style={{ color: "white" }}><Link to={'/signup'}>Signup</Link></Button>
                            </li>
                         </ul>
                         :
@@ -218,13 +181,10 @@ function App() {
                      (state?.isLogin === true) ?
                         <ul className="nav">
                            <li>
-                              <Link to={'/'}>UserList</Link>
+                              <Button variant="outlined" className="butt" style={{ color: "white" }}><Link to={'/'}>UserList</Link></Button>
                            </li>
                            <li>
-                              <Link to={'/profile'}>Profile</Link>
-                           </li>
-                           <li>
-                              <Link to={'/change-password'}>Change Password</Link>
+                              <Button variant="outlined" className="butt" style={{ color: "white" }}><Link to={'/profile'}>Profile</Link></Button>
                            </li>
                         </ul>
                         :

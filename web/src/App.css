@@ -6,7 +6,10 @@
 .nav>li{
     margin-right: 20px;
 }
-.nav>li>a{
+.nav>li>.butt{
+    color: white;
+}
+.nav>li>.butt>a{
     text-decoration: none;
     font-weight: 700;
     color: white;
@@ -16,6 +19,18 @@
     padding-bottom: 50px;
     font-weight: 700;
     color: black;
+}
+.hamNav{
+    display: flex;
+    flex-direction: row;
+    list-style: none;
+}
+.hamNav>li{
+    margin-right: 20px;
+}
+.hamButt > a {
+    text-decoration: none;
+    font-weight: 700;
 }
 .main{
     width: 100%;

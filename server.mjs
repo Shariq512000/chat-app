@@ -170,10 +170,6 @@ app.post('/api/v1/message', async (req, res) => {
         text: req.body.text
     })
 
-    // io.emit(`${req.body.to}-${req.body.token._id}` , sent)
-
-    // console.log("channel: ", `${req.body.to}-${req.body.token._id}`);
-
     const populatedMessage = await messageModel
         .findById(sent._id)
         .populate({ path: 'from', select: 'firstName lastName email' })
@@ -210,6 +206,11 @@ app.get('/api/v1/messages/:id', async (req, res) => {
     res.send(messages);
 
 })
+
+// app.get('/api/v1/inbox' , async (req , res) => {
+//     const person = await messageModel.find({
+//     })
+// } )
 
 app.post('/api/v1/change-password', async (req, res) => {
     try {
