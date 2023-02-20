@@ -13,6 +13,7 @@ import cookie from "cookie";
 import { createServer } from 'http';
 import authApis from "./apis/auth.mjs";
 import postApis from "./apis/post.mjs";
+// import messageApi from './apis/messages.mjs'
 import { userModel, messageModel } from './dbRepo/models.mjs';
 
 const SECRET = process.env.SECRET || "topsecret";
@@ -212,39 +213,6 @@ app.get('/api/v1/messages/:id', async (req, res) => {
 //     })
 // } )
 
-app.post('/api/v1/change-password', async (req, res) => {
-    try {
-        const _id = req.body.token._id
-        const currentPassword = req.body.currentPassword
-        const newPassword = req.body.newPassword
-
-        const user = await userModel.findOne({ _id: _id }, "password",).exec()
-
-        if (!user) throw new Error("User Not Found")
-
-        const isMatch = await varifyHash(currentPassword, user.password)
-
-        if (!isMatch) throw new Error("Current Password is not Match to your Password")
-
-        const newHash = await stringToHash(newPassword);
-
-        await userModel.updateOne({ _id: _id }, { password: newHash }).exec()
-
-        res.send({
-            message: "Password Change Successful"
-        })
-
-
-
-    } catch (error) {
-
-        console.log("Error :", error);
-        res.status(500).send({})
-
-    }
-}
-)
-
 app.use('/api/v1', postApis)
 
 const __dirname = path.resolve();
@@ -298,29 +266,15 @@ io.on("connection", (socket) => {
         }
     });
 
-    // to emit data to a certain client
+    
     socket.emit("topic 1", "some data")
 
-    // collecting connected users in a array
-    // connectedUsers.push(socket)
 
     socket.on("disconnect", (message) => {
         console.log("Client disconnected with id: ", message);
     });
 });
 
-
-// to emit data to a certain client
-//  connectedUsers[0].emit("topic 1", "some data")
-
-// setInterval(() => {
-
-//     // to emit data to all connected client
-//     // first param is topic name and second is json data
-//     io.emit("Test topic", { event: "ADDED_ITEM", data: "some data" });
-//     console.log("emiting data to all client");
-
-// }, 2000)
 
 server.listen(port, () => {
     console.log(`Example app listening on port ${port}`)

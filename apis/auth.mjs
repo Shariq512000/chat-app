@@ -171,6 +171,39 @@ router.post('/logout', (req, res) => {
     res.send({ message: "Logout successful" });
 });
 
+router.post('/change-password', async (req, res) => {
+    try {
+        const _id = req.body.token._id
+        const currentPassword = req.body.currentPassword
+        const newPassword = req.body.newPassword
+
+        const user = await userModel.findOne({ _id: _id }, "password",).exec()
+
+        if (!user) throw new Error("User Not Found")
+
+        const isMatch = await varifyHash(currentPassword, user.password)
+
+        if (!isMatch) throw new Error("Current Password is not Match to your Password")
+
+        const newHash = await stringToHash(newPassword);
+
+        await userModel.updateOne({ _id: _id }, { password: newHash }).exec()
+
+        res.send({
+            message: "Password Change Successful"
+        })
+
+
+
+    } catch (error) {
+
+        console.log("Error :", error);
+        res.status(500).send({})
+
+    }
+}
+)
+
 router.post('/forget-password' , async(req , res) => {
     try {
 

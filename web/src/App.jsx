@@ -131,26 +131,30 @@ function App() {
          <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
                <Toolbar>
-                  <IconButton
-                     size="large"
-                     edge="start"
-                     color="inherit"
-                     aria-label="open drawer"
-                     sx={{ mr: 2 }}
-                     onClick={() => { setMenuOpen(true) }
-                     }
-                  >
-                     <MenuIcon />
-                  </IconButton>
+                  {(state?.isLogin === true) ?
+                     <IconButton
+                        size="large"
+                        edge="start"
+                        color="inherit"
+                        aria-label="open drawer"
+                        sx={{ mr: 2 }}
+                        onClick={() => { setMenuOpen(true) }
+                        }
+                     >
+                        <MenuIcon />
+                     </IconButton>
+                     :
+                     null
+                  }
                   <Drawer
                      anchor="left"
                      open={menuOpen}
                      onClose={() => { setMenuOpen(false) }}
                   >
-                     <IconButton onClick={() => { setMenuOpen(false) }} style={{borderRadius: 0, alignSelf: "flex-end"}}>
+                     <IconButton onClick={() => { setMenuOpen(false) }} style={{ borderRadius: 0, alignSelf: "flex-end" }}>
                         <ArrowBackIcon />
                      </IconButton>
-                     <Divider style={{marginTop:5}} />
+                     <Divider style={{ marginTop: 5 }} />
                      <ul className="hamNav">
                         <li>
                            <Button variant="outlined" className="hamButt"><Link to={'/change-password'}>Change Password</Link></Button>

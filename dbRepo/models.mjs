@@ -32,7 +32,8 @@ const userSchema = new mongoose.Schema({
     lastName: { type: String, required: true },
     email: { type: String, required: true },
     password: { type: String, required: true },
-
+    profilePic: { type: String , default: "https://firebasestorage.googleapis.com/v0/b/post-storage-3d871.appspot.com/o/userProfiles%2FprofilePhoto1.jpg?alt=media&token=36c42f9e-6524-492b-90e8-3cb269d1ccfd" },
+    coverPic: { type: String , default: "https://firebasestorage.googleapis.com/v0/b/post-storage-3d871.appspot.com/o/userCoverPhotos%2FcoverPhoto1.png?alt=media&token=111a800e-ac49-48bc-a582-555429dd3e8f" },
     createdOn: { type: Date, default: Date.now },
 });
 

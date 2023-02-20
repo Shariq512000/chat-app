@@ -179,6 +179,7 @@ function ChatScreen() {
                 <div className='name' >{eachMessage.from.firstName} {eachMessage.from.lastName}</div>
                 <div className='time' >{moment(eachMessage.createdOn).fromNow()}</div>
               </div>
+              <br />
               <div className='text' >{eachMessage.text}</div>
             </div>
 
