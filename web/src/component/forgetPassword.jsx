@@ -3,6 +3,7 @@ import { GlobalContext } from '../context/Context';
 
 import axios from "axios";
 import { Formik, Form, Field, useFormik } from 'formik';
+import { useNavigate } from "react-router-dom";
 import * as yup from 'yup';
 import {
     BooleanSchema,
@@ -29,6 +30,8 @@ import "./signup.css";
 function ForgetPassword() {
 
     let { state, dispatch } = useContext(GlobalContext);
+
+    const navigate = useNavigate();
 
 
 
@@ -170,6 +173,9 @@ function ForgetPassword() {
                 console.log("response :", response);
                 console.log("message: ", message);
                 console.log("response: ", response.data);
+                navigate("/");
+                console.log("navigate");
+                formikPassword.resetForm();
                 setSuccessOpen(true);
                 setSuccessMessage(message);
                 // dispatch({type: 'USER_LOGIN', payload: response.data.profile })
@@ -270,6 +276,9 @@ function ForgetPassword() {
                 setSuccessOpen(true);
                 setSuccessMessage("Password Changed");
                 e.reset();
+                navigate("/");
+                console.log("navigate");
+                formikPassword.resetForm();
 
             }
             catch (error) {

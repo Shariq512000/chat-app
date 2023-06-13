@@ -213,7 +213,7 @@ router.post('/forget-password' , async(req , res) => {
             res.status(400).send("required parameter missing")
             return;
         }
-        const user = userModel.findOne({email: email }, "firstName lastName email" ,).exec()
+        const user = await userModel.findOne({email: email }, "firstName lastName email" ,).exec()
         if(!user) throw new Error("User not found");
 
         const nanoid = customAlphabet('1234567890', 5)
