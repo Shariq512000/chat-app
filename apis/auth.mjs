@@ -1,12 +1,11 @@
 import express  from "express";
 import { userModel , otpModel } from "../dbRepo/models.mjs";
 import jwt from 'jsonwebtoken';
-import cookieParser from 'cookie-parser';
 import {
     stringToHash,
     varifyHash,
 } from "bcrypt-inzi";
-import { nanoid, customAlphabet } from 'nanoid'
+import { customAlphabet } from 'nanoid'
 import moment from "moment";
 
 

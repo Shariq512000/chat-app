@@ -2,18 +2,9 @@ import { useContext } from "react";
 import { GlobalContext } from '../context/Context';
 
 import axios from "axios";
-import { Formik, Form, Field, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import { useNavigate } from "react-router-dom";
 import * as yup from 'yup';
-import {
-    BooleanSchema,
-    DateSchema,
-    MixedSchema,
-    NumberSchema,
-    ArraySchema,
-    ObjectSchema,
-    StringSchema,
-} from 'yup';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
@@ -58,7 +49,6 @@ function ForgetPassword() {
         email: yup
             .string('Enter a Valid Email')
             .email('Enter a Valid Email')
-            // .isValid('enter a valid email')
             .required('email is Required'),
         otp: yup
             .string("Enter a Valid OTP")
@@ -99,7 +89,6 @@ function ForgetPassword() {
                 console.log("response: ", response.data);
                 setSuccessOpen(true);
                 setSuccessMessage(message);
-                // dispatch({type: 'USER_LOGIN', payload: response.data.profile })
 
             }
             catch (error) {
@@ -109,7 +98,6 @@ function ForgetPassword() {
                 setErrorOpen(true);
             }
         },
-        // validator:() => ({})
     });
 
     const formikOtp = useFormik({
@@ -138,7 +126,6 @@ function ForgetPassword() {
                 console.log("response: ", response.data);
                 setSuccessOpen(true);
                 setSuccessMessage(message);
-                // dispatch({type: 'USER_LOGIN', payload: response.data.profile })
 
             }
             catch (error) {
@@ -178,7 +165,6 @@ function ForgetPassword() {
                 formikPassword.resetForm();
                 setSuccessOpen(true);
                 setSuccessMessage(message);
-                // dispatch({type: 'USER_LOGIN', payload: response.data.profile })
 
             }
             catch (error) {
@@ -212,7 +198,6 @@ function ForgetPassword() {
             console.log("response: ", response.data);
             setSuccessOpen(true);
             setSuccessMessage(message);
-            // dispatch({type: 'USER_LOGIN', payload: response.data.profile })
 
         }
         catch (error) {
@@ -244,7 +229,6 @@ function ForgetPassword() {
                 console.log("response: ", response.data);
                 setSuccessOpen(true);
                 setSuccessMessage(message);
-                // dispatch({type: 'USER_LOGIN', payload: response.data.profile })
             }
             catch (error) {
                 dispatch({ type: 'CLICK_LOGOUT' });
@@ -294,7 +278,6 @@ function ForgetPassword() {
         <div>
 
             {(!loadOtp && !putOtp) ?
-                // <form className="form" onSubmit={formik.handleSubmit}>
                 <form className="form" onSubmit={sendOtp}>
 
                     <TextField
@@ -307,10 +290,6 @@ function ForgetPassword() {
                                 setGetEmail(e.target.value)
                             }
                         }
-                    // value={formik.values.email}
-                    // onChange={formik.handleChange}
-                    // error={formik.touched.email && Boolean(formik.errors.email)}
-                    // helperText={formik.touched.email && formik.errors.email}
                     />
                     <br />
                     <br />
@@ -330,7 +309,6 @@ function ForgetPassword() {
             }
 
             {(loadOtp && !putOtp) ?
-                // <form className="form" onSubmit={formikOtp.handleSubmit}>
                 <form className="form" onSubmit={confirmOtp}>
 
                     <TextField
@@ -343,10 +321,6 @@ function ForgetPassword() {
                                 setGetOtp(e.target.value)
                             }
                         }
-                        // value={formikOtp.values.otp}
-                        // onChange={formikOtp.handleChange}
-                        // error={formikOtp.touched.otp && Boolean(formikOtp.errors.otp)}
-                        // helperText={formikOtp.touched.otp && formikOtp.errors.otp}
                     />
                     <br />
                     <br />
@@ -365,7 +339,6 @@ function ForgetPassword() {
             }
 
             {(loadOtp && putOtp) ?
-                // <form className="form" onSubmit={formikPassword.handleSubmit}>
                 <form className="form" onSubmit={changePassword}>
 
 
@@ -377,10 +350,6 @@ function ForgetPassword() {
                         onChange={(e) => {
                             setGetNewPassword(e.target.value)
                         }}
-                        // value={formikPassword.values.newPassword}
-                        // onChange={formikPassword.handleChange}
-                        // error={formikPassword.touched.newPassword && Boolean(formikPassword.errors.newPassword)}
-                        // helperText={formikPassword.touched.newPassword && formikPassword.errors.newPassword}
                     />
                     <br />
                     <br />

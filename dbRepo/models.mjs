@@ -1,16 +1,10 @@
 import mongoose from 'mongoose';
-// import { string } from 'yup/lib/locale';
 
 let postSchema = new mongoose.Schema({
     text: { type: String, required: true },
     owner: { type: mongoose.ObjectId, ref: "Users", required: true },
     image: { type: String },
     imageUrl: { type: String },
-    // likes: [{ type: mongoose.ObjectId }],
-    // comments: [ {
-    //     user: { type: mongoose.ObjectId },
-    //     commentText: String
-    // } ],
     isDeleted: { type: Boolean, default: false },
     createdOn: { type: Date, default: Date.now }
 });

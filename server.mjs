@@ -1,19 +1,13 @@
 import express from 'express';
 import path from 'path';
 import cors from 'cors';
-import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import cookieParser from 'cookie-parser';
-import {
-    stringToHash,
-    varifyHash,
-} from "bcrypt-inzi";
 import { Server as socketIo } from 'socket.io';
 import cookie from "cookie";
 import { createServer } from 'http';
 import authApis from "./apis/auth.mjs";
 import postApis from "./apis/post.mjs";
-// import messageApi from './apis/messages.mjs'
 import { userModel, messageModel } from './dbRepo/models.mjs';
 
 const SECRET = process.env.SECRET || "topsecret";
@@ -30,7 +24,6 @@ app.use(cors({
     credentials: true
 }));
 
-// let products = []; // TODO: connect with mongodb instead
 
 
 app.use('/api/v1', authApis)
@@ -208,10 +201,6 @@ app.get('/api/v1/messages/:id', async (req, res) => {
 
 })
 
-// app.get('/api/v1/inbox' , async (req , res) => {
-//     const person = await messageModel.find({
-//     })
-// } )
 
 app.use('/api/v1', postApis)
 

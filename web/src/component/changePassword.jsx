@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { GlobalContext } from '../context/Context';
 
 import axios from "axios";
-import { Formik, Form, Field, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import * as yup from 'yup';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
@@ -40,7 +40,6 @@ function ChangePassword() {
     const validationSchema = yup.object({
         currentPassword: yup
             .string('Enter a Valid Name')
-            // .isValid('enter a valid email')
             .required('email is Required'),
         newPassword: yup
             .string('Enter Password')
@@ -79,7 +78,6 @@ function ChangePassword() {
                     console.log("response: ", response.data);
                     setSuccessOpen(true);
                     setSuccessMessage(message);
-                    // dispatch({type: 'USER_LOGIN', payload: response.data.profile })
 
                 }
                 catch (error) {

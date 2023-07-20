@@ -2,17 +2,8 @@ import { useContext } from "react";
 import { GlobalContext } from '../context/Context';
 
 import axios from "axios";
-import { Formik, Form, Field, useFormik } from 'formik';
+import { useFormik } from 'formik';
 import * as yup from 'yup';
-import {
-    BooleanSchema,
-    DateSchema,
-    MixedSchema,
-    NumberSchema,
-    ArraySchema,
-    ObjectSchema,
-    StringSchema,
-} from 'yup';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import Alert from '@mui/material/Alert';
@@ -51,7 +42,6 @@ function Login() {
         email: yup
             .string('Enter a Valid Name')
             .email('enter a valid email')
-            // .isValid('enter a valid email')
             .required('email is Required'),
         password: yup
             .string('Enter Password')
@@ -162,10 +152,6 @@ function Login() {
             </form>
 
             <center><Link to={"/forget-password"}>Forget Password?</Link></center>
-
-
-
-
 
         </div>
     )

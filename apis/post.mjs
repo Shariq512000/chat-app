@@ -1,11 +1,6 @@
 import express from "express";
-import { postModel, userModel } from "../dbRepo/models.mjs";
+import { postModel } from "../dbRepo/models.mjs";
 import jwt from 'jsonwebtoken';
-import cookieParser from 'cookie-parser';
-import {
-    stringToHash,
-    varifyHash,
-} from "bcrypt-inzi";
 import mongoose from "mongoose";
 import fs from 'fs';
 
@@ -124,7 +119,6 @@ router.post('/post', uploadMiddleware.any(), (req, res) => {
 router.get('/posts', (req, res) => {
 
     const userId = new mongoose.Types.ObjectId(req.body.token._id);
-    // const admin = userModel.findOne({_id : userId},"firstName lastName")
     const page = req.query.page || 0
 
     postModel.find({ owner: userId, isDeleted: false }, {}, {
@@ -141,7 +135,6 @@ router.get('/posts', (req, res) => {
             res.send({
                 message: "got all posts successfully",
                 data: data,
-                // admin: admin 
             })
         } else {
             res.status(500).send({

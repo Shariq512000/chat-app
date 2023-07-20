@@ -2,34 +2,28 @@ import { Routes, Route, Link, Navigate } from "react-router-dom";
 
 import Signup from "./component/signup";
 import Login from "./component/login";
-import NewsFeed from "./component/newsFeed";
 import UserList from "./component/userList";
-import Contact from "./component/Contact";
-import Profile from "./component/profile";
 import ChangePassword from "./component/changePassword"
 import ForgetPassword from "./component/forgetPassword"
 import ChatScreen from "./component/chatScreen";
+import Profile from "./component/profile";
 
 import { useContext } from "react";
 import { GlobalContext } from './context/Context';
 
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import InputBase from '@mui/material/InputBase';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import LogoutIcon from '@mui/icons-material/Logout';
 import CircularProgress from '@mui/material/CircularProgress';
 import { Button } from "@mui/material";
 import Drawer from '@mui/material/Drawer';
 import Divider from '@mui/material/Divider';
-import { createTheme } from '@mui/material/styles';
 
 
 import { useState } from 'react';
