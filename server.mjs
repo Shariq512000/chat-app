@@ -212,7 +212,7 @@ const server = createServer(app);
 
 const io = new socketIo(server, {
     cors: {
-        origin: ["http://localhost:3000", 'https://mern-chatapp.cyclic.app', '*'],
+        origin: ["http://localhost:3000", 'https://mern-chatapp.cyclic.app'],
         credentials: true
     }
 });
