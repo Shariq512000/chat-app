@@ -7,7 +7,7 @@ import { Server as socketIo } from 'socket.io';
 import cookie from "cookie";
 import { createServer } from 'http';
 import authApis from "./apis/auth.mjs";
-import postApis from "./apis/post.mjs";
+//import postApis from "./apis/post.mjs";
 import { userModel, messageModel } from './dbRepo/models.mjs';
 
 const SECRET = process.env.SECRET || "topsecret";
@@ -202,7 +202,7 @@ app.get('/api/v1/messages/:id', async (req, res) => {
 })
 
 
-app.use('/api/v1', postApis)
+//app.use('/api/v1', postApis)
 
 const __dirname = path.resolve();
 app.use('/', express.static(path.join(__dirname, './web/build')))
